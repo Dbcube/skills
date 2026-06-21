@@ -1,0 +1,19 @@
+{
+  "name": "dbcube",
+  "owner": {
+    "name": "Dbcube",
+    "url": "https://github.com/Dbcube"
+  },
+  "metadata": {
+    "description": "Official Claude Code skills for the Dbcube ORM.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "dbcube",
+      "source": "./plugins/dbcube",
+      "description": "Native Dbcube support in Claude Code: .cube schema/seeder/trigger/alter files, the type-safe query builder, transactions, relations, the CLI and cloud config (Supabase, Turso, PlanetScale, Atlas).",
+      "version": "1.0.0"
+    }
+  ]
+}
