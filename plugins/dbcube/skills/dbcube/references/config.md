@@ -25,7 +25,7 @@ module.exports = function (config) {
           PORT: parseInt(process.env.DBCUBE_MYAPP_PORT, 10),
         },
         // optional:
-        pool: { maxConnections: 5, minConnections: 2, acquireTimeoutMs: 3000, idleTimeoutMs: 3600000 },
+        pool: { maxConnections: 5, minConnections: 2, acquireTimeoutMs: 3000, idleTimeoutMs: 3600000, sessionIdleTimeoutMs: 300000 },
         daemon: { requestTimeoutMs: 30000 },
       },
     },
@@ -43,11 +43,23 @@ module.exports = function (config) {
 | `AUTH_TOKEN` | string | Turso/libSQL | edge auth token |
 
 ## Connection pool
-`pool: { maxConnections, minConnections, acquireTimeoutMs, idleTimeoutMs }`.
-Defaults ≈ 5/2/3000/3600000 (SQLite 10/1). **Sizing:** serverless/poolers →
-small `maxConnections` (even 1); long-running servers → higher; benchmarks → the
-same budget on both sides (`{ maxConnections: 1, minConnections: 1 }`).
+`pool: { maxConnections, minConnections, acquireTimeoutMs, idleTimeoutMs, sessionIdleTimeoutMs }`.
+Defaults ≈ 5/2/3000/3600000 (SQLite 10/1), `sessionIdleTimeoutMs` 300000.
+**Sizing:** serverless/poolers → small `maxConnections` (even 1); long-running
+servers → higher; benchmarks → the same budget on both sides
+(`{ maxConnections: 1, minConnections: 1 }`).
 Rule for replicas: `replicas × maxConnections` must stay under the DB's limit.
+
+**`sessionIdleTimeoutMs`** (default `300000` = 5 min) — server-side idle *session*
+timeout: the database itself terminates a session left idle longer than this. It
+bounds how long **orphaned connections** survive after an ungraceful client death
+(e.g. a container that keeps crashing and restarting), which otherwise pile up
+until the server runs out of connections. Applies to MySQL (`wait_timeout`),
+PostgreSQL (`idle_session_timeout`, PG 14+) and MongoDB (`maxIdleTimeMS`); SQLite
+is local and unaffected. Live pooled connections are unaffected — Postgres keeps
+its shared connections alive with a keep-alive ping, and MySQL revalidates on
+acquire. Set to `0` to disable and keep the server defaults. Requires
+query-engine **v1.1.3+**.
 
 ## Cloud databases (URL + TLS) — same code, just config
 TLS is on by default for managed hosts.
