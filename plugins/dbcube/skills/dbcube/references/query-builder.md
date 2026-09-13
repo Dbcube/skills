@@ -126,7 +126,7 @@ const res = await mongo.raw(JSON.stringify({ find: 'users', filter: { age: { $gt
 ```
 
 ## TypeScript
-`npx dbcube generate` writes `dbcube/types.ts`. Then `db.table<User>('users')`
+`npx dbcube generate` writes `dbcube/types/index.ts`. Then `db.table<User>('users')`
 flows the row type through the whole chain; `insert` takes `Partial<T>`;
 `paginate` → `PaginatedResult<T>`; `db.raw<R>()` types ad-hoc projections.
 

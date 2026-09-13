@@ -11,7 +11,7 @@ Commands verified against `cli/src/index.js`. Invoke with `npx dbcube <command>`
 | Command | What it does |
 |---|---|
 | `dbcube init` | Scaffold a Dbcube project (config, `dbcube/` folder). |
-| `dbcube generate` | Generate `dbcube/types.ts` from your `.cube` schema. Re-run after schema changes. |
+| `dbcube generate` | Generate `dbcube/types/index.ts` from your `.cube` schema. Re-run after schema changes. |
 | `dbcube validate` | Validate `.cube` files. |
 | `dbcube doctor` | Health checks (config, connectivity, binaries). |
 | `dbcube dev` | Watch mode (regenerate/apply on change). |
@@ -67,7 +67,7 @@ RUN npx dbcube update
 ```
 
 ## Notes
-- After ANY schema change, run `dbcube generate` so `dbcube/types.ts` stays in
+- After ANY schema change, run `dbcube generate` so `dbcube/types/index.ts` stays in
   sync (a mismatch surfaces as a TS error, not a runtime 500).
 - The native engine binary downloads on first run; `dbcube update` pre-fetches it.
 - ⚖️ That binary is **proprietary** (not MIT). Never decompile, decompress or

@@ -59,7 +59,7 @@ PostgreSQL (`idle_session_timeout`, PG 14+) and MongoDB (`maxIdleTimeMS`); SQLit
 is local and unaffected. Live pooled connections are unaffected — Postgres keeps
 its shared connections alive with a keep-alive ping, and MySQL revalidates on
 acquire. Set to `0` to disable and keep the server defaults. Requires
-query-engine **v1.1.3+**.
+query-engine **v2.1.0+**.
 
 ## Cloud databases (URL + TLS) — same code, just config
 TLS is on by default for managed hosts.

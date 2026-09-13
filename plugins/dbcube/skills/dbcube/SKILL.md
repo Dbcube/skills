@@ -19,7 +19,7 @@ wild).
 
 ## Detect a Dbcube project
 Signs you're in one: a `dbcube.config.js` at the root, a `dbcube/` folder with
-`.cube` files and/or `types.ts`, or `dbcube` / `@dbcube/*` in `package.json`.
+`.cube` files and/or `types/index.ts`, or `dbcube` / `@dbcube/*` in `package.json`.
 
 ## The golden rules (most common mistakes)
 1. **Config is `config.set({ databases: { ... } })`.** There is **no**
@@ -97,10 +97,24 @@ Note the `.cube` syntax uses **semicolons** inside objects and decorators
 (`@database`, `@meta`, `@columns`, …). Highlight `.cube` code blocks in Markdown
 as `ts` (Shiki has no `cube` lexer).
 
+## Data + AI at a glance (2.1.0+, optional packages)
+```ts
+// npm install @dbcube/ai @dbcube/vector @dbcube/rag   — plus an `ai` block in dbcube.config.js
+const hits = await db.table("products")
+  .where("price", "<", 100)                 // hybrid: real SQL filter
+  .search("wireless gaming mouse")          // needs a `vector` column (or a RAG collection)
+  .topK(10).withScore().get();
+
+await db.table("kb").import("./guide.md");  // RAG: chunk → embed → index
+const { answer, sources } = await db.table("kb").answer("How do I configure TLS?");
+```
+Exact signatures, the `ai` config block and the `embeddingModel` vs `model` trap are in
+`references/ai.md`. Don't invent AI methods beyond that list.
+
 ## CLI (real commands — verified against cli/src)
 ```bash
 npx dbcube init                  # scaffold a project
-npx dbcube generate              # generate dbcube/types.ts from the schema
+npx dbcube generate              # generate dbcube/types/index.ts from the schema
 npx dbcube run table:fresh       # drop & recreate tables from .cube files
 npx dbcube run table:refresh     # apply schema changes
 npx dbcube run table:alter       # apply a .alter.cube
@@ -129,6 +143,7 @@ Dbcube's IP. To inspect the public API, read the `.d.ts` files in
 - `references/query-builder.md` — every read/write/aggregation/relation method, pagination, chunk, raw, MongoDB notes.
 - `references/cube-files.md` — full syntax for `.table.cube`, `.seeder.cube`, `.alter.cube`, `.trigger.cube`, computed fields.
 - `references/cli.md` — every CLI command with flags and typical workflows.
+- `references/ai.md` — **Data + AI (2.1.0+)**: vector columns, `search()`/`similarTo()`/`topK()`, auto-embeddings, RAG (`add`/`import`/`answer`/`chat`), the `ai` config block.
 
 ## Source of truth — verify against the INSTALLED package
 This skill is a curated snapshot; the authoritative API for the exact installed
@@ -142,7 +157,7 @@ shipped type declarations** instead of guessing:
 - `node_modules/@dbcube/core/dist/index.d.ts` — config, engine, connection.
 - `node_modules/@dbcube/schema-builder/` — `.cube` schema handling.
 - `node_modules/@dbcube/cli/` — CLI commands (or `npx dbcube help`).
-- The project's `dbcube/types.ts` (from `npx dbcube generate`) — the real column
+- The project's `dbcube/types/index.ts` (from `npx dbcube generate`) — the real column
   and row types; also use it to verify table/column names.
 
 ```bash

@@ -1,6 +1,6 @@
 # `.cube` files
 
-> The real column/row types for THIS project are in `dbcube/types.ts`
+> The real column/row types for THIS project are in `dbcube/types/index.ts`
 > (`npx dbcube generate`). `.cube` parsing/handling lives in
 > `node_modules/@dbcube/schema-builder`. Check existing `dbcube/*.cube` files in
 > the project for the conventions actually used.
@@ -45,11 +45,16 @@ showing `.cube` in Markdown, fence it as `ts` (no `cube` lexer in Shiki).
   };
 });
 ```
-- Common `type`s: `int`, `varchar` (needs `length`), `text`, `boolean`, `date`,
-  `datetime`, `timestamp`, `decimal`, `float`, `double`.
+- Common `type`s: `int`, `tinyint`, `bigint`, `varchar` (needs `length`), `text`,
+  `boolean`, `date`, `datetime`, `timestamp`, `decimal`, `float`, `double`, `enum`,
+  `json`, and since 2.1.0 `vector` (needs `dimension`, PostgreSQL + pgvector) and
+  `blob`. See `ai.md` for vector columns.
 - `options`: `"primary"`, `"autoincrement"`, `"not null"`, `"null"`, `"unique"`,
   `"index"`.
-- `defaultValue` for a column default.
+- `defaultValue` for a column default. On a `boolean` column write `"true"`/`"false"`;
+  2.1.0+ emits `DEFAULT TRUE/FALSE` on PostgreSQL (older engines emitted `DEFAULT 0`,
+  which PostgreSQL rejects).
+- `@meta({ name: "..."; })` — `name` is required, `description` is optional.
 
 ### Foreign keys / relations
 Declare a `foreign` on the child column so `with('<relation>')` resolves
@@ -120,4 +125,4 @@ derived values you want available on read without storing them.
 1. Write/edit `.cube` files.
 2. `npx dbcube run table:fresh` (new) or `table:refresh` / `table:alter` (changes).
 3. `npx dbcube run seeder:add` to seed.
-4. `npx dbcube generate` to refresh `dbcube/types.ts`.
+4. `npx dbcube generate` to refresh `dbcube/types/index.ts`.
