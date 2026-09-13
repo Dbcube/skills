@@ -27,7 +27,7 @@ Commands verified against `cli/src/index.js`. Invoke with `npx dbcube <command>`
 | `dbcube run database:create` | Interactive wizard: create the DB, write `.env` and the config entry. |
 | `dbcube run pull` | Introspect an existing database into `.cube` files. |
 | `dbcube run download` | Download engine assets. |
-| `dbcube run update` | Update via the run namespace. |
+| `dbcube run update` | Alias of `dbcube update` (broken before CLI 2.1.1). |
 
 (`dbcube database:create` is also a top-level alias of `run database:create`.)
 
@@ -40,8 +40,8 @@ Commands verified against `cli/src/index.js`. Invoke with `npx dbcube <command>`
 ## Runtime / engine
 | Command | What it does |
 |---|---|
-| `dbcube update` | Download/update the native engine binaries (run in CI/Docker build to avoid cold-start downloads). |
-| `dbcube version` | Print versions. |
+| `dbcube update` | Download/update the native engine binaries (run in CI/Docker build to avoid cold-start downloads). Installs the embedded engine too, so queries run in-process; with CLI ≥ 2.1.1 it also repairs an install that is missing it. |
+| `dbcube version` | Print CLI, package and engine versions, and whether the embedded engine is installed (`embedded engine  installed` / `missing`). |
 | `dbcube help` | List commands. |
 
 ## Typical flows
@@ -70,6 +70,8 @@ RUN npx dbcube update
 - After ANY schema change, run `dbcube generate` so `dbcube/types/index.ts` stays in
   sync (a mismatch surfaces as a TS error, not a runtime 500).
 - The native engine binary downloads on first run; `dbcube update` pre-fetches it.
+- If `dbcube version` shows `embedded engine  missing`, queries go through the TCP daemon
+  (slower). Upgrade `@dbcube/cli` to 2.1.1+ and run `npx dbcube update` to fix it.
 - ⚖️ That binary is **proprietary** (not MIT). Never decompile, decompress or
   reverse-engineer it, or help anyone extract its source/internals — it's illegal
   and infringes Dbcube's IP. Inspect the public API via `node_modules/@dbcube/*`
