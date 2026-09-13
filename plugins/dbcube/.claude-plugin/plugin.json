@@ -1,7 +1,7 @@
 {
   "name": "dbcube",
   "description": "Native Dbcube support: .cube files, the query builder, transactions, relations, Data + AI (vector search, RAG), the CLI and cloud config.",
-  "version": "2.1.0",
+  "version": "6.0.0",
   "author": { "name": "Dbcube", "url": "https://github.com/Dbcube" },
   "homepage": "https://dbcube.dev",
   "keywords": ["dbcube", "orm", "database", "cube", "postgres", "mysql", "sqlite", "mongodb", "ai", "vector", "rag"]

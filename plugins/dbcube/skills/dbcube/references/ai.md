@@ -1,6 +1,6 @@
-# Data + AI — vector search, auto-embeddings and RAG (2.1.0+)
+# Data + AI — vector search, auto-embeddings and RAG (6.0.0+)
 
-Signatures below are copied from the published `@dbcube/query-builder@2.1.0` types.
+Signatures below are copied from the published `@dbcube/query-builder@6.0.0` types.
 If a method is not listed here, it does not exist — use `raw()` instead of inventing one.
 
 ## Install (optional packages)

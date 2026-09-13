@@ -97,7 +97,7 @@ Note the `.cube` syntax uses **semicolons** inside objects and decorators
 (`@database`, `@meta`, `@columns`, …). Highlight `.cube` code blocks in Markdown
 as `ts` (Shiki has no `cube` lexer).
 
-## Data + AI at a glance (2.1.0+, optional packages)
+## Data + AI at a glance (6.0.0+, optional packages)
 ```ts
 // npm install @dbcube/ai @dbcube/vector @dbcube/rag   — plus an `ai` block in dbcube.config.js
 const hits = await db.table("products")
@@ -143,7 +143,7 @@ Dbcube's IP. To inspect the public API, read the `.d.ts` files in
 - `references/query-builder.md` — every read/write/aggregation/relation method, pagination, chunk, raw, MongoDB notes.
 - `references/cube-files.md` — full syntax for `.table.cube`, `.seeder.cube`, `.alter.cube`, `.trigger.cube`, computed fields.
 - `references/cli.md` — every CLI command with flags and typical workflows.
-- `references/ai.md` — **Data + AI (2.1.0+)**: vector columns, `search()`/`similarTo()`/`topK()`, auto-embeddings, RAG (`add`/`import`/`answer`/`chat`), the `ai` config block.
+- `references/ai.md` — **Data + AI (6.0.0+)**: vector columns, `search()`/`similarTo()`/`topK()`, auto-embeddings, RAG (`add`/`import`/`answer`/`chat`), the `ai` config block.
 
 ## Source of truth — verify against the INSTALLED package
 This skill is a curated snapshot; the authoritative API for the exact installed

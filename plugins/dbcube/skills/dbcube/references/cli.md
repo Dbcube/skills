@@ -27,7 +27,7 @@ Commands verified against `cli/src/index.js`. Invoke with `npx dbcube <command>`
 | `dbcube run database:create` | Interactive wizard: create the DB, write `.env` and the config entry. |
 | `dbcube run pull` | Introspect an existing database into `.cube` files. |
 | `dbcube run download` | Download engine assets. |
-| `dbcube run update` | Alias of `dbcube update` (broken before CLI 2.1.1). |
+| `dbcube run update` | Alias of `dbcube update` (broken in the deprecated CLI 2.1.0). |
 
 (`dbcube database:create` is also a top-level alias of `run database:create`.)
 
@@ -71,7 +71,7 @@ RUN npx dbcube update
   sync (a mismatch surfaces as a TS error, not a runtime 500).
 - The native engine binary downloads on first run; `dbcube update` pre-fetches it.
 - If `dbcube version` shows `embedded engine  missing`, queries go through the TCP daemon
-  (slower). Upgrade `@dbcube/cli` to 2.1.1+ and run `npx dbcube update` to fix it.
+  (slower). Upgrade `@dbcube/cli` to 6.0.0+ and run `npx dbcube update` to fix it.
 - ⚖️ That binary is **proprietary** (not MIT). Never decompile, decompress or
   reverse-engineer it, or help anyone extract its source/internals — it's illegal
   and infringes Dbcube's IP. Inspect the public API via `node_modules/@dbcube/*`

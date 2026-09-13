@@ -47,12 +47,12 @@ showing `.cube` in Markdown, fence it as `ts` (no `cube` lexer in Shiki).
 ```
 - Common `type`s: `int`, `tinyint`, `bigint`, `varchar` (needs `length`), `text`,
   `boolean`, `date`, `datetime`, `timestamp`, `decimal`, `float`, `double`, `enum`,
-  `json`, and since 2.1.0 `vector` (needs `dimension`, PostgreSQL + pgvector) and
+  `json`, and since schema-engine v2.1.0 (Dbcube 6.0.0) `vector` (needs `dimension`, PostgreSQL + pgvector) and
   `blob`. See `ai.md` for vector columns.
 - `options`: `"primary"`, `"autoincrement"`, `"not null"`, `"null"`, `"unique"`,
   `"index"`.
 - `defaultValue` for a column default. On a `boolean` column write `"true"`/`"false"`;
-  2.1.0+ emits `DEFAULT TRUE/FALSE` on PostgreSQL (older engines emitted `DEFAULT 0`,
+  schema-engine v2.1.0+ emits `DEFAULT TRUE/FALSE` on PostgreSQL (older engines emitted `DEFAULT 0`,
   which PostgreSQL rejects).
 - `@meta({ name: "..."; })` — `name` is required, `description` is optional.
 
